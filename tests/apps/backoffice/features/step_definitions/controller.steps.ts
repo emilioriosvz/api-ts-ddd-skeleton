@@ -25,7 +25,7 @@ Given(
     if (!application.httpServer) {
       throw new Error("HTTP server is not initialized");
     }
-    _request = request(application.httpServer)
+    _request = request(application?.httpServer)
       .put(route)
       .send(JSON.parse(body) as object);
   },
