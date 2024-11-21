@@ -3,9 +3,19 @@ import { VideoRepository } from "../../../../../src/Contexts/Backoffice/Videos/d
 
 export class VideoRepositoryMock implements VideoRepository {
   private readonly mockSave = jest.fn();
-
+  private readonly mockSearch = jest.fn();
   async save(video: Video): Promise<void> {
     await this.mockSave(video);
+  }
+
+  async search(id: string): Promise<Video | null> {
+    const video = new Video({
+      id,
+      name: "some-name",
+      duration: "some-duration",
+    });
+
+    return await this.mockSearch(video);
   }
 
   assertLastSavedVideoIs(expected: Video): void {
