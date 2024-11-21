@@ -4,6 +4,7 @@ import { VideoRepository } from "../../../../../src/Contexts/Backoffice/Videos/d
 export class VideoRepositoryMock implements VideoRepository {
   private readonly mockSave = jest.fn();
   private readonly mockSearch = jest.fn();
+
   async save(video: Video): Promise<void> {
     await this.mockSave(video);
   }
@@ -23,5 +24,9 @@ export class VideoRepositoryMock implements VideoRepository {
     const lastSavedVideo = (mock.calls[mock.calls.length - 1] as Video[])[0];
     expect(lastSavedVideo).toBeInstanceOf(Video);
     expect(lastSavedVideo.id).toEqual(expected.id);
+  }
+
+  saveHasBeenCalled(video: Video): void {
+    expect(this.mockSave).toHaveBeenCalledWith(video);
   }
 }
