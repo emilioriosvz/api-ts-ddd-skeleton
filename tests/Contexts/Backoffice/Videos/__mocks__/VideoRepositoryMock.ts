@@ -26,7 +26,7 @@ export class VideoRepositoryMock implements VideoRepository {
     expect(lastSavedVideo.id).toEqual(expected.id);
   }
 
-  saveHasBeenCalled(video: Video): void {
+  assertSaveHasBeenCalled(video: Video): void {
     expect(this.mockSave).toHaveBeenCalledWith(video);
   }
 }
