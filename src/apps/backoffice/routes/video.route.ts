@@ -15,6 +15,7 @@ export const register = (router: Router): void => {
   const repository = new MemoryVideoRepository();
   const videoCreator = new VideoCreator(repository);
   const videoPutController = new VideoPutController(videoCreator);
+
   router.put(
     "/videos/:id",
     requestSchema,
