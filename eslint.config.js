@@ -12,6 +12,7 @@ module.exports = [
   // Configuration for TypeScript
   {
     files: ["**/*.ts", "**/*.tsx"],
+    ignores: ["node_modules", "dist"],
     languageOptions: {
       parser: typescriptParser,
       ecmaVersion: "latest",

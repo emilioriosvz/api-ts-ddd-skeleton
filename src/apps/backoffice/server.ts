@@ -31,7 +31,8 @@ export class Server {
     registerRoutes(router);
 
     router.use(
-      (err: Error, req: Request, res: Response, next: NextFunction) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (err: Error, _req: Request, res: Response, _next: NextFunction) => {
         console.log(err);
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
       },
