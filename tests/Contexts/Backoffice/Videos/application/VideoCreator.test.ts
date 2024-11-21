@@ -21,5 +21,6 @@ describe("VideoCreator", () => {
     await creator.run(id, name, duration);
 
     repository.assertLastSavedVideoIs(video);
+    repository.assertSaveHasBeenCalled({ id, name, duration });
   });
 });

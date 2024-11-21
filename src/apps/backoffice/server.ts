@@ -33,8 +33,8 @@ export class Server {
     router.use(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-        console.log(err);
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
+        console.log(err); // replace this with your logger
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message); // avoid sending stack traces to the client, let this only for development
       },
     );
   }

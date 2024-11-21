@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status-codes";
-
 import { Controller } from "./Controller";
 
 export default class StatusGetController implements Controller {
