@@ -14,6 +14,10 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   addSubscribers(subscribers: Array<DomainEventSubscriber<DomainEvent>>) {
     subscribers.forEach((subscriber) => {
       subscriber.subscribedTo().forEach((event) => {
+        console.log(
+          `🔔 Subscriber ${subscriber.constructor.name} subscribed to event ${event.EVENT_NAME}`,
+        );
+
         this.on(event.EVENT_NAME, subscriber.on.bind(subscriber));
       });
     });

@@ -15,6 +15,7 @@ export class VideoCreator {
   async run(id: string, name: string, duration: string): Promise<void> {
     const video = Video.create(id, name, duration);
     await this.repository.save(video);
-    await this.eventBus.publish(video.pullDomainEvents());
+    const event = video.pullDomainEvents();
+    await this.eventBus.publish(event);
   }
 }
