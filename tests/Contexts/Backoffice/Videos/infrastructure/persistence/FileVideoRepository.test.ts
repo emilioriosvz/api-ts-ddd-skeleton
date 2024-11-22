@@ -3,11 +3,7 @@ import FileVideoRepository from "../../../../../../src/Contexts/Backoffice/Video
 
 describe("FileVideoRepository", () => {
   it("should save a video", async () => {
-    const videoMock: Video = new Video({
-      id: "10",
-      name: "video10",
-      duration: "10",
-    });
+    const videoMock: Video = new Video("10", "video10", "10");
     const repository = new FileVideoRepository();
     await repository.save(videoMock);
     const video = await repository.search(videoMock.id);

@@ -1,16 +1,20 @@
+import { EventBus } from "../../../Shared/domain/EventBus";
 import { Video } from "../domain/Video";
 import { VideoRepository } from "../domain/VideoRepository";
 
 export class VideoCreator {
   private readonly repository: VideoRepository;
 
-  constructor(repository: VideoRepository) {
+  constructor(
+    repository: VideoRepository,
+    private eventBus: EventBus,
+  ) {
     this.repository = repository;
   }
 
   async run(id: string, name: string, duration: string): Promise<void> {
-    const video = new Video({ id, name, duration });
-
-    return this.repository.save(video);
+    const video = Video.create(id, name, duration);
+    await this.repository.save(video);
+    await this.eventBus.publish(video.pullDomainEvents());
   }
 }

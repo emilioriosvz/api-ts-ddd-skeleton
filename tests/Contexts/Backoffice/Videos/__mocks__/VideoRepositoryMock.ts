@@ -10,11 +10,7 @@ export class VideoRepositoryMock implements VideoRepository {
   }
 
   async search(id: string): Promise<Video | null> {
-    const video = new Video({
-      id,
-      name: "some-name",
-      duration: "some-duration",
-    });
+    const video = new Video(id, "some-name", "some-duration");
 
     return await this.mockSearch(video);
   }
