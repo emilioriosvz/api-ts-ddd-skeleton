@@ -14,7 +14,7 @@ export class IncrementVideosCounterOnVideoCreated
 
   async on(domainEvent: VideoCreatedDomainEvent) {
     console.log(
-      `📭 Incrementing videos counter for video ${domainEvent.aggregateId}`,
+      `📭 Receiving ${VideoCreatedDomainEvent.EVENT_NAME} event with aggregateId: ${domainEvent.aggregateId}`,
     );
     await this.incrementer.run(domainEvent.aggregateId);
   }
