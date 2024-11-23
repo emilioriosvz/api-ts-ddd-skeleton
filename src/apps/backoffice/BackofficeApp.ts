@@ -1,8 +1,7 @@
 import { DomainEvent } from "../../Contexts/Shared/domain/DomainEvent";
 import { DomainEventSubscriber } from "../../Contexts/Shared/domain/DomainEventSubscriber";
-import { EventBus } from "../../Contexts/Shared/domain/EventBus";
 import { Server } from "./server";
-import { InMemoryAsyncEventBus } from "../../Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus";
+import inMemoryAsyncEventBus from "../../Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus";
 import { DomainEventSubscribers } from "../../Contexts/Shared/infrastructure/EventBus/DomainEventSubscribers";
 
 export class BackofficeApp {
@@ -24,8 +23,7 @@ export class BackofficeApp {
   }
 
   private async configureEventBus() {
-    const eventBus = new InMemoryAsyncEventBus() as EventBus;
-    eventBus.addSubscribers(this.findSubscribers());
+    inMemoryAsyncEventBus.addSubscribers(this.findSubscribers());
   }
 
   private findSubscribers(): Array<DomainEventSubscriber<DomainEvent>> {

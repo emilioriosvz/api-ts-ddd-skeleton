@@ -23,3 +23,6 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
     });
   }
 }
+
+const inMemoryAsyncEventBus = new InMemoryAsyncEventBus();
+export default inMemoryAsyncEventBus;

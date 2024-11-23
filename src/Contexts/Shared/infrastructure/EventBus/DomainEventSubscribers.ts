@@ -3,7 +3,7 @@ import { VideosCounterIncrementer } from "../../../Backoffice/VideosCounter/appl
 import { InMemoryVideosCounterRepository } from "../../../Backoffice/VideosCounter/infrastructure/InMemoryVideosCounterRepository";
 import { DomainEvent } from "../../domain/DomainEvent";
 import { DomainEventSubscriber } from "../../domain/DomainEventSubscriber";
-import { InMemoryAsyncEventBus } from "./InMemory/InMemoryAsyncEventBus";
+import inMemoryAsyncEventBus from "./InMemory/InMemoryAsyncEventBus";
 
 export class DomainEventSubscribers {
   public items: Array<DomainEventSubscriber<DomainEvent>>;
@@ -15,7 +15,7 @@ export class DomainEventSubscribers {
   static fromDomainEventSubscribers(): DomainEventSubscribers {
     const videosCounterIncrementer = new VideosCounterIncrementer(
       new InMemoryVideosCounterRepository(),
-      new InMemoryAsyncEventBus(),
+      inMemoryAsyncEventBus,
     );
     const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [
       new IncrementVideosCounterOnVideoCreated(videosCounterIncrementer),
