@@ -5,6 +5,7 @@ import InMemoryVideoRepository from "../../../Contexts/Backoffice/Videos/infraes
 import { body } from "express-validator";
 import { validateReqSchema } from ".";
 import inMemoryAsyncEventBus from "../../../Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus";
+import { inMemoryDatabaseClient } from "../../../Contexts/Backoffice/Shared/infrastructure/persistence/InMemory/InMemoryDatabaseClient";
 
 export const register = (router: Router): void => {
   const requestSchema = [
@@ -13,7 +14,7 @@ export const register = (router: Router): void => {
     body("duration").exists().isString(),
   ];
 
-  const repository = new InMemoryVideoRepository();
+  const repository = new InMemoryVideoRepository(inMemoryDatabaseClient);
   const videoCreator = new VideoCreator(repository, inMemoryAsyncEventBus);
   const videoPutController = new VideoPutController(videoCreator);
 

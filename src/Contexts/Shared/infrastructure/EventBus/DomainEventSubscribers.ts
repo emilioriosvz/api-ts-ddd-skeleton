@@ -1,3 +1,4 @@
+import { inMemoryDatabaseClient } from "../../../Backoffice/Shared/infrastructure/persistence/InMemory/InMemoryDatabaseClient";
 import { IncrementVideosCounterOnVideoCreated } from "../../../Backoffice/VideosCounter/application/Increment/IncrementVideosCounterOnVideoCreated";
 import { VideosCounterIncrementer } from "../../../Backoffice/VideosCounter/application/Increment/VideosCounterIncrementer";
 import { InMemoryVideosCounterRepository } from "../../../Backoffice/VideosCounter/infrastructure/InMemoryVideosCounterRepository";
@@ -14,7 +15,7 @@ export class DomainEventSubscribers {
 
   static fromDomainEventSubscribers(): DomainEventSubscribers {
     const videosCounterIncrementer = new VideosCounterIncrementer(
-      new InMemoryVideosCounterRepository(),
+      new InMemoryVideosCounterRepository(inMemoryDatabaseClient),
       inMemoryAsyncEventBus,
     );
     const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [

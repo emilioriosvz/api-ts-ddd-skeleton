@@ -6,6 +6,12 @@
       "name": "Run npm dev:backoffice",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "command": "npm run test:features",
+      "name": "Debug Test Features",
+      "request": "launch",
+      "type": "node-terminal"
     }
   ]
 }

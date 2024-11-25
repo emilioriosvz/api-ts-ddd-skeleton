@@ -6,7 +6,6 @@ import { EventBus } from "../../../domain/EventBus";
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   async publish(events: DomainEvent[]): Promise<void> {
     events.map((event) => {
-      console.log(`💌 Publishing event: ${event.eventName}`);
       this.emit(event.eventName, event);
     });
   }

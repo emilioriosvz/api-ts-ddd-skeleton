@@ -6,7 +6,7 @@ type DomainEventJSON = {
   aggregateId: string;
   attributes: string;
   id: string;
-  occurred_on: string;
+  occurredOn: string;
 };
 
 export class DomainEventDeserializer extends Map<string, DomainEventClass> {
@@ -26,7 +26,7 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
 
   deserialize(event: string) {
     const eventData = JSON.parse(event).data as DomainEventJSON;
-    const { type, aggregateId, attributes, id, occurred_on } = eventData;
+    const { type, aggregateId, attributes, id, occurredOn } = eventData;
     const eventClass = super.get(type);
 
     if (!eventClass) {
@@ -36,7 +36,7 @@ export class DomainEventDeserializer extends Map<string, DomainEventClass> {
     return eventClass.fromPrimitives({
       aggregateId,
       attributes,
-      occurredOn: new Date(occurred_on),
+      occurredOn: new Date(occurredOn),
       eventId: id,
     });
   }
