@@ -1,8 +1,9 @@
 import assert from "assert";
-import { AfterAll, BeforeAll, Given, Then } from "@cucumber/cucumber";
+import { AfterAll, Before, BeforeAll, Given, Then } from "@cucumber/cucumber";
 import request from "supertest";
 
 import { BackofficeApp } from "../../../../../src/apps/backoffice/BackofficeApp";
+import { inMemoryDatabaseClient } from "../../../../../src/Contexts/Backoffice/Shared/infrastructure/persistence/InMemory/InMemoryDatabaseClient";
 
 let _request: request.Test;
 let application: BackofficeApp;
@@ -33,6 +34,20 @@ Given(
 
 Then("the response should be empty", () => {
   assert.deepStrictEqual(_response.body, {});
+});
+
+Then("the response body should be:", function (docString: string) {
+  const expectedResponse = JSON.parse(docString);
+  assert.deepStrictEqual(_response.body, expectedResponse);
+});
+
+// Reset before each scenario
+Before(async () => {
+  // Reset databases
+  const collections = ["videos_counter", "videos"];
+  for (const collection of collections) {
+    await inMemoryDatabaseClient.delete(collection, {});
+  }
 });
 
 BeforeAll(() => {

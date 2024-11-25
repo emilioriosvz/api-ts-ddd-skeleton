@@ -1,9 +1,11 @@
 import { Request, Response, Router } from "express";
 import { VideoPutController } from "../controllers/VideoPutController";
 import { VideoCreator } from "../../../Contexts/Backoffice/Videos/application/VideoCreator";
-import MemoryVideoRepository from "../../../Contexts/Backoffice/Videos/infraestructure/FileVideoRepository";
+import InMemoryVideoRepository from "../../../Contexts/Backoffice/Videos/infraestructure/FileVideoRepository";
 import { body } from "express-validator";
 import { validateReqSchema } from ".";
+import inMemoryAsyncEventBus from "../../../Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus";
+import { inMemoryDatabaseClient } from "../../../Contexts/Backoffice/Shared/infrastructure/persistence/InMemory/InMemoryDatabaseClient";
 
 export const register = (router: Router): void => {
   const requestSchema = [
@@ -12,8 +14,8 @@ export const register = (router: Router): void => {
     body("duration").exists().isString(),
   ];
 
-  const repository = new MemoryVideoRepository();
-  const videoCreator = new VideoCreator(repository);
+  const repository = new InMemoryVideoRepository(inMemoryDatabaseClient);
+  const videoCreator = new VideoCreator(repository, inMemoryAsyncEventBus);
   const videoPutController = new VideoPutController(videoCreator);
 
   router.put(
