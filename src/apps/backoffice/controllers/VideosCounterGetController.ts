@@ -5,10 +5,10 @@ import { VideosCounterFinder } from "../../../Contexts/Backoffice/VideosCounter/
 import { VideosCounterNotExist } from "../../../Contexts/Backoffice/VideosCounter/domain/VideosCounterNotExist";
 
 export class VideosCounterGetController implements Controller {
-  constructor(private coursesCounterFinder: VideosCounterFinder) {}
+  constructor(private videosCounterFinder: VideosCounterFinder) {}
   async run(req: Request, res: Response): Promise<void> {
     try {
-      const count = await this.coursesCounterFinder.run();
+      const count = await this.videosCounterFinder.run();
 
       res.json({ total: count });
     } catch (e) {

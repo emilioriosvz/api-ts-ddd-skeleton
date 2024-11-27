@@ -12,11 +12,12 @@ export class VideosCounterIncrementer {
   async run(videoId: string) {
     const counter =
       (await this.repository.search()) || this.initializeCounter();
+    if (!counter.hasIncremented(videoId)) {
+      counter.increment(videoId);
 
-    counter.increment(videoId);
-
-    await this.repository.save(counter);
-    await this.bus.publish(counter.pullDomainEvents());
+      await this.repository.save(counter);
+      await this.bus.publish(counter.pullDomainEvents());
+    }
   }
 
   private initializeCounter(): VideosCounter {
