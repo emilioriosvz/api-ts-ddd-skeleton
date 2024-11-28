@@ -1,5 +1,3 @@
-import { DomainEvent } from "../../Contexts/Shared/domain/DomainEvent";
-import { DomainEventSubscriber } from "../../Contexts/Shared/domain/DomainEventSubscriber";
 import { Server } from "./server";
 import inMemoryAsyncEventBus from "../../Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus";
 import { DomainEventSubscribers } from "../../Contexts/Shared/infrastructure/EventBus/DomainEventSubscribers";
@@ -26,9 +24,7 @@ export class BackofficeApp {
     inMemoryAsyncEventBus.addSubscribers(this.findSubscribers());
   }
 
-  private findSubscribers(): Array<DomainEventSubscriber<DomainEvent>> {
-    const domainEventSubscribers =
-      DomainEventSubscribers.fromDomainEventSubscribers().items;
-    return domainEventSubscribers;
+  private findSubscribers(): DomainEventSubscribers {
+    return DomainEventSubscribers.fromDomainEventSubscribers();
   }
 }
