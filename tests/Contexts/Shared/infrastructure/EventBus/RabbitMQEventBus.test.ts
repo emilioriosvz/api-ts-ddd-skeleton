@@ -1,4 +1,4 @@
-import { RabbitMQConnection } from "../../../../../src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMqConnection";
+import { RabbitMQConnection } from "../../../../../src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQConnection";
 import { RabbitMQEventBus } from "../../../../../src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBus";
 import { VideosCounterIncrementedDomainEventMother } from "../../../Backoffice/VideosCounter/domain/VideosCounterIncrementedDomainEventMother";
 
