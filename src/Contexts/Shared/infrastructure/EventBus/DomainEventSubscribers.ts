@@ -4,7 +4,7 @@ import { VideosCounterIncrementer } from "../../../Backoffice/VideosCounter/appl
 import { InMemoryVideosCounterRepository } from "../../../Backoffice/VideosCounter/infrastructure/InMemoryVideosCounterRepository";
 import { DomainEvent } from "../../domain/DomainEvent";
 import { DomainEventSubscriber } from "../../domain/DomainEventSubscriber";
-import { RabbitMQConnection } from "./RabbitMQ/RabbitMQConnection";
+import { rabbitMQConnection } from "./RabbitMQ/RabbitMQConnection";
 import { RabbitMQEventBus } from "./RabbitMQ/RabbitMQEventBus";
 import { RabbitMQqueueFormatter } from "./RabbitMQ/RabbitMQqueueFormatter";
 
@@ -16,21 +16,22 @@ export class DomainEventSubscribers {
   }
 
   static fromDomainEventSubscribers(): DomainEventSubscribers {
-    const connection = new RabbitMQConnection({
-      connectionSettings: {
-        username: process.env.RABBITMQ_USERNAME || "guest",
-        password: process.env.RABBITMQ_PASSWORD || "guest",
-        vhost: process.env.RABBITMQ_VHOST || "/",
-        connection: {
-          secure: process.env.RABBITMQ_SECURE === "false",
-          hostname: process.env.RABBITMQ_HOSTNAME || "localhost",
-          port: parseInt(process.env.RABBITMQ_PORT || "5672"),
-        },
-      },
-      exchangeSettings: {
-        name: "domain_events",
-      },
-    });
+    // const connection = new RabbitMQConnection({
+    //   connectionSettings: {
+    //     username: process.env.RABBITMQ_USERNAME || "guest",
+    //     password: process.env.RABBITMQ_PASSWORD || "guest",
+    //     vhost: process.env.RABBITMQ_VHOST || "/",
+    //     connection: {
+    //       secure: process.env.RABBITMQ_SECURE === "false",
+    //       hostname: process.env.RABBITMQ_HOSTNAME || "localhost",
+    //       port: parseInt(process.env.RABBITMQ_PORT || "5672"),
+    //     },
+    //   },
+    //   exchangeSettings: {
+    //     name: "domain_events",
+    //   },
+    // });
+    const connection = rabbitMQConnection;
 
     const rabbitMQEventBus = new RabbitMQEventBus({
       connection,

@@ -14,6 +14,8 @@ export class RabbitMQConnection {
     exchangeSettings: ExchangeSetting;
   }) {
     this.connectionSettings = params.connectionSettings;
+
+    this.connect();
   }
 
   async connect() {
